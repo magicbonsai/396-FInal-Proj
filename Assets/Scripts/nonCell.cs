@@ -1,16 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts;
 
-public class nonCell : MonoBehaviour {
+using UnityEngine.AI;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+namespace Assets.Scripts
+{
+
+
+    public class nonCell : MonoBehaviour
+    {
+        private bool _hasTower;
+        // Use this for initialization
+        void Start()
+        {
+            _hasTower = false;
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            GetComponent<NavMeshObstacle>().enabled = _hasTower;
+        }
+    }
 }
