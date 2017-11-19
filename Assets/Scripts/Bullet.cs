@@ -7,6 +7,7 @@ namespace Assets.Scripts
 {
     public class Bullet : MonoBehaviour
     {
+        
         private int _power;
 
         public Enemy _target; //I'm using Homing Missiles becuase it'd be so dumb if a Tower misses in a Tower Defense game
@@ -45,7 +46,8 @@ namespace Assets.Scripts
         internal void OnCollisionEnter(Collision other)
         {
             //int gold = other.gameObject.GetComponent<Enemy>().Attack;
-            other.gameObject.GetComponent<Enemy>().TakeDamage(_power);
+            if(other.gameObject.GetComponent<Enemy>())
+                other.gameObject.GetComponent<Enemy>().TakeDamage(_power);
             //if (other.gameObject.GetComponent<Enemy>().enabled == false)
             //{
             //    FindObjectOfType<GameManager>().AddGold(gold);

@@ -8,11 +8,33 @@ namespace Assets.Scripts
     public class Cell : MonoBehaviour
     {
         private bool _hasTower;
+        private Renderer rend;
+        public Color hoverColor;
+        private Color startColor;
+        public GameObject bMenu, sMenu;
+        private Vector3 cubePos;
+        
+
 
         // Use this for initialization
         void Start()
         {
             _hasTower = false;
+            rend = GetComponent<Renderer>();
+            startColor = rend.material.color;
+            cubePos = Camera.main.WorldToScreenPoint(this.transform.position);
+            
+            bMenu.SetActive(false);
+        }
+
+        void OnMouseEnter()
+        {
+            rend.material.color = hoverColor;
+        }
+
+        private void OnMouseExit()
+        {
+            rend.material.color = startColor;
         }
 
         // Update is called once per frame
@@ -24,8 +46,14 @@ namespace Assets.Scripts
         //This will be sufficient for detecting mouse clicks, in the future a menu will be added to select towers
         void OnMouseUp()
         {
-            Debug.Log("Hi! My name is: (" + transform.position.x + ", " + transform.position.y + ")");
-            _hasTower = true;
+            
+            Debug.Log("Hi! My name is: (" + transform.position.x + ", " + transform.position.z + ")");
+            if (!_hasTower)
+            {
+                bMenu.SetActive(true);
+                bMenu.transform.position = cubePos;
+            }
+            //_hasTower = true;
         }
     }
 }
