@@ -10,11 +10,13 @@ namespace Assets.Scripts
     {
         public int Gold;
         public Text GoldText;
+        public bool menuOpen;
         //private GameObject[,] _grid;
 
         // Use this for initialization
         void Start()
         {
+            menuOpen = false;
             GoldText.text = "Gold: " + Gold;
             /*_grid = new GameObject[5, 5];
             for (int j = 0; j < 5; j++)
@@ -30,6 +32,11 @@ namespace Assets.Scripts
         void Update()
         {
 
+        }
+
+        public void closeMenu()
+        {
+            menuOpen = false;
         }
 
         public void AddGold(int gold)
