@@ -53,15 +53,46 @@ namespace Assets.Scripts
             GetComponent<NavMeshObstacle>().enabled = _hasTower;
             
         }
+        IEnumerator Flash()
+        {
+            rend.material.color = Color.red; //Too tired, please pick a better color
+            yield return new WaitForSeconds(0.1f);
+            rend.material.color = Color.white;
+        }
 
         //This will be sufficient for detecting mouse clicks, in the future a menu will be added to select towers
         void OnMouseUp()
         {
-            
+            if (gManager.menuOpen)
+            {
+                bMenu.SetActive(false);
+                gManager.menuOpen = false;
+                return;
+            }
             //Debug.Log("Hi! My name is: (" + transform.position.x + ", " + transform.position.z + ")");
+            if (!_hasTower)
+            {
+                GetComponent<NavMeshObstacle>().enabled = true;
+                foreach (Enemy enemy in FindObjectsOfType<Enemy>())
+                {
+                    if (!enemy.GetComponent<NavMeshAgent>().CalculatePath(enemy.GetComponent<NavMeshAgent>().destination, enemy.GetComponent<NavMeshAgent>().path))
+                    {
+                        Flash();
+                        return;
+                    }
+                }
+
+                bMenu.SetActive(true);
+                bMenu.transform.Find("upgradeButton").gameObject.GetComponent<Button>().GetComponent<Image>().color = Color.black;
+                bMenu.transform.Find("upgradeButton").gameObject.GetComponent<Button>().enabled = false;
+                gManager.menuOpen = true;
+            }
+
             if (!gManager.menuOpen)
             {
                 bMenu.SetActive(true);
+                bMenu.transform.Find("buildButton").gameObject.GetComponent<Button>().GetComponent<Image>().color = Color.black;
+                bMenu.transform.Find("buildButton").gameObject.GetComponent<Button>().enabled = false;
                 gManager.menuOpen = true;
                 //Debug.Log(gManager);
             }

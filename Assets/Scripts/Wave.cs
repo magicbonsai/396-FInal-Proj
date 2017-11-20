@@ -12,6 +12,7 @@ namespace Assets.Scripts
         private float windowWidth;
         public Slider TimeRemaining;
         private int Wave_num=0;
+        public int MaxWaves;
         private float _timeUntilWave;
         private float _timeCalled;
         private float _SpawnTime;
@@ -71,12 +72,31 @@ namespace Assets.Scripts
             //Updates text position as well
             else
             {
-                TimeRemaining.value = _timeUntilWave-(Time.time -_timeCalled);
-                Debug.Log(TimeRemaining.value);
-                num_wave.GetComponent<RectTransform>().position = new Vector3(Screen.width * TimeRemaining.value / _timeUntilWave, Screen.height / 10 + 20, Normies.GetComponent<RectTransform>().position.z);
-                Normies.GetComponent<RectTransform>().position = new Vector3(Screen.width*TimeRemaining.value/_timeUntilWave, num_wave.GetComponent<RectTransform>().position.y - 20, Normies.GetComponent<RectTransform>().position.z);
-                Fast.GetComponent<RectTransform>().position = new Vector3(Screen.width * TimeRemaining.value / _timeUntilWave, Normies.GetComponent<RectTransform>().position.y - 20, Normies.GetComponent<RectTransform>().position.z);
-                Strong.GetComponent<RectTransform>().position = new Vector3(Screen.width * TimeRemaining.value / _timeUntilWave, Fast.GetComponent<RectTransform>().position.y - 20, Normies.GetComponent<RectTransform>().position.z);
+                if (Wave_num < MaxWaves)
+                {
+                    TimeRemaining.value = _timeUntilWave - (Time.time - _timeCalled);
+                    //Debug.Log(TimeRemaining.value);
+                    num_wave.GetComponent<RectTransform>().position = new Vector3(
+                        Screen.width * TimeRemaining.value / _timeUntilWave, Screen.height / 10 + 20,
+                        Normies.GetComponent<RectTransform>().position.z);
+                    Normies.GetComponent<RectTransform>().position = new Vector3(
+                        Screen.width * TimeRemaining.value / _timeUntilWave,
+                        num_wave.GetComponent<RectTransform>().position.y - 20,
+                        Normies.GetComponent<RectTransform>().position.z);
+                    Fast.GetComponent<RectTransform>().position = new Vector3(
+                        Screen.width * TimeRemaining.value / _timeUntilWave,
+                        Normies.GetComponent<RectTransform>().position.y - 20,
+                        Normies.GetComponent<RectTransform>().position.z);
+                    Strong.GetComponent<RectTransform>().position = new Vector3(
+                        Screen.width * TimeRemaining.value / _timeUntilWave,
+                        Fast.GetComponent<RectTransform>().position.y - 20,
+                        Normies.GetComponent<RectTransform>().position.z);
+                }
+                else
+                {
+                    FindObjectOfType<GameManager>().WinLossText.text = "WINNER";
+                    FindObjectOfType<GameManager>().StopGame();
+                }
             }
         }
 

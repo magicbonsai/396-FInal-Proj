@@ -26,16 +26,9 @@ namespace Assets.Scripts
         {
             Health -= damage;
             HealthSlider.value = Health;
-
-            //Too lazy to figure out an actual way to make the health bar look "empty"
-            if (Health <= 0)
-            {
-                HealthSlider.transform.GetChild(1).GetChild(0).GetComponent<Image>().color = new Color(255, 0, 0, 0);
-                Die();
-            }
         }
 
-        void Die()
+        public void Die()
         {
             //Please I really want a death "animation" or at least an explosion
             Destroy(gameObject);

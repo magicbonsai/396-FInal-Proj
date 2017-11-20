@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Base: {fileID: 1304382733066212, guid: a1bde2510961d044bb61a5f877d47202, type: 2}
-  Attack: 2
+  Attack: 25
   Speed: 2.5
 --- !u!136 &136931414182484270
 CapsuleCollider:
