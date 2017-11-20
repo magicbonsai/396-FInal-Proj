@@ -26,11 +26,11 @@ namespace Assets.Scripts
             _hasTower = false;
             rend = GetComponent<Renderer>();
             startColor = rend.material.color;
-            cubePos = Camera.main.WorldToScreenPoint(this.transform.position);
-            bMenu.transform.position = cubePos;
+            //cubePos = Camera.main.WorldToScreenPoint(this.transform.position);
+            //bMenu.transform.position = cubePos;
             bMenu.SetActive(false);
-            fText.SetActive(false);
-            tText.SetActive(false);
+            //fText.SetActive(false);
+            //tText.SetActive(false);
             g = GameObject.Find("Game Manager");
             gManager = g.GetComponent<GameManager>();
         }
@@ -86,6 +86,7 @@ namespace Assets.Scripts
                 bMenu.transform.Find("upgradeButton").gameObject.GetComponent<Button>().GetComponent<Image>().color = Color.black;
                 bMenu.transform.Find("upgradeButton").gameObject.GetComponent<Button>().enabled = false;
                 gManager.menuOpen = true;
+                Debug.Log("Build Menu Open");
             }
 
             if (!gManager.menuOpen)
@@ -94,7 +95,7 @@ namespace Assets.Scripts
                 bMenu.transform.Find("buildButton").gameObject.GetComponent<Button>().GetComponent<Image>().color = Color.black;
                 bMenu.transform.Find("buildButton").gameObject.GetComponent<Button>().enabled = false;
                 gManager.menuOpen = true;
-                //Debug.Log(gManager);
+                Debug.Log("Upgrade Menu Open");
             }
             //_hasTower = true;
         }
@@ -112,7 +113,9 @@ namespace Assets.Scripts
                 _hasTower = true;
                 gManager.menuOpen = false;
                 bMenu.SetActive(false);
+                Debug.Log("Tower Built");
             }
+            /*
             else if (gManager.Gold < 10)
             {
                 StartCoroutine(noMoney());
@@ -121,7 +124,7 @@ namespace Assets.Scripts
             {
                 StartCoroutine(isBuilt());
             }
-            
+            */
         }
 
         public void sellTower()
